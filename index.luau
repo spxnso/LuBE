@@ -7,7 +7,7 @@ local luau = require("@lune/luau")
 local COMPILE_WITH_LUNE = true -- false if you didn't compile with Lune
 
 local Bytecode;
-if COMPILED_WITH_LUNE then 
+if COMPILE_WITH_LUNE then 
     local file = fs.readFile("./input.luau")
     Bytecode = luau.compile(file);
 else
