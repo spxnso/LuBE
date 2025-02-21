@@ -336,7 +336,6 @@ local function luau_deserialize(bytecode, luau_settings)
 		local opmode = opinfo[2]
 		local kmode = opinfo[3]
 		local usesAux = opinfo[4]
-
 		local inst = {
 			opcode = opcode;
 			opname = opname;
@@ -438,7 +437,6 @@ local function luau_deserialize(bytecode, luau_settings)
 				skipnext = false
 				continue 
 			end
-			print("Instruction: ", i)
 			skipnext = readInstruction(codelist)
 		end
 		local debugcodelist = table_create(sizecode) 
@@ -635,7 +633,6 @@ local function luau_load(module, env, luau_settings)
 	local function luau_wrapclosure(module, proto, upvals)
 		local function luau_execute(...)
 			local debugging, stack, protos, code, varargs
-			
 			if luau_settings.errorHandling then
 				debugging, stack, protos, code, varargs = ... 
 			else 
@@ -646,9 +643,8 @@ local function luau_load(module, env, luau_settings)
 					len = 0,
 					list = {},
 				}
-	
 				table_move(passed, 1, proto.numparams, 0, stack)
-	
+		
 				if proto.numparams < passed.n then
 					local start = proto.numparams + 1
 					local len = passed.n - proto.numparams
@@ -711,6 +707,7 @@ local function luau_load(module, env, luau_settings)
 				elseif op == 4 then --[[ LOADN ]]
 					stack[inst.A] = inst.D
 				elseif op == 5 then --[[ LOADK ]]
+
 					stack[inst.A] = inst.K
 				elseif op == 6 then --[[ MOVE ]]
 					stack[inst.A] = stack[inst.B]
