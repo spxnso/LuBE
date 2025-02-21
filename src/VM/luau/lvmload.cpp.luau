@@ -2,7 +2,6 @@
 local objects = require("./lobject.h")
 local streamUtils = require("./streamUtils")
 local bytecode = require("./bytecode.h")
-local compileBytecode = require("./compiler")
 
 function luaV_getimport(env, k, id, propagatenil)
 	local count = bit32.rshift(id, 30)
@@ -151,10 +150,12 @@ function luau_load(data, env)
 		local code = table.create(sizecode)
 		local skipnext = false
 
-		for j = 1, sizecode do
+		local j = 1
+		while j < sizecode do
 			if skipnext then
 				streamUtils:read4Bytes()
-				skipnext = false 
+				skipnext = false
+				j = j - 1;
 			else
 				local op = streamUtils:read4Bytes()
 				local useAux = bytecode.formattedOpcodes[bytecode.LUAU_INSN_OP(op)][4]
@@ -164,6 +165,7 @@ function luau_load(data, env)
 					skipnext = true
 				end
 			end
+			j = j + 1
 		end
 
 		local sizek = streamUtils:readVarInt()
