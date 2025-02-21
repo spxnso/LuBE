@@ -1,6 +1,7 @@
 -- LuBE requires Lune to be installed in order to read files.
 -- Compile command: luau-compile --binary -g0 input.luau > output.bin
 local LVM_L = require("./src/VM/luau/lvmload.cpp")
+local LVM_E = require("./src/VM/luau/lvmexecute.cpp")
 local Beautify = require("./src/VM/luau/beautify")
 local fs = require("@lune/fs")
 local luau = require("@lune/luau")
@@ -16,3 +17,4 @@ end
 
 local proto = LVM_L.luau_load(Bytecode, { print = print })
 Beautify(proto)
+LVM_E.lvm_execute(proto)
