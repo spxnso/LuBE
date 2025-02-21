@@ -33,14 +33,14 @@ local function beautify(lvm_load_out)
 		-- 3. ABC
 		-- 4. AD
 		-- 5. AE
-
 		--[[
-         Instruction.registers.A = (opMode ~= 5 and bytecode.LUAU_INSN_A(instr) or nil)
-        Instruction.registers.B = ((opMode == 2 or opMode == 3) and bytecode.LUAU_INSN_B(instr) or nil)
-        Instruction.registers.C = (opMode == 3 and bytecode.LUAU_INSN_C(instr) or nil)
-        Instruction.registers.D = (opMode == 4 and bytecode.LUAU_INSN_D(instr) or nil)
-        Instruction.registers.E = (opMode == 5 and bytecode.LUAU_INSN_E(instr) or nil)
+            Instruction.registers.A = (opMode ~= 5 and bytecode.LUAU_INSN_A(instr) or nil)
+			Instruction.registers.B = ((opMode == 2 or opMode == 3) and bytecode.LUAU_INSN_B(instr) or nil)
+			Instruction.registers.C = (opMode == 3 and bytecode.LUAU_INSN_C(instr) or nil)
+			Instruction.registers.D = (opMode == 4 and bytecode.LUAU_INSN_D(instr) or nil)
+			Instruction.registers.E = (opMode == 5 and bytecode.LUAU_INSN_E(instr) or nil)
         -]]
+		opMode = opMode - 1;
 		if opMode == 0 then
 			Instruction.registers.A = bytecode.LUAU_INSN_A(instr)
 		elseif opMode == 1 then
